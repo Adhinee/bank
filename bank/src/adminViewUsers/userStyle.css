@@ -1,0 +1,60 @@
+
+h1{
+    color: rgb(110, 107, 107);
+    background-color: rgb(156, 121, 74);
+}
+
+ul{
+    color: aliceblue;
+    text-align: left;
+    height: 100%;
+    top: 0;
+}
+ul li {
+    display: grid;
+    grid-template-columns: 85% 90%;
+    background:  linear-gradient(to right ,rgb(24, 133, 177),rgb(7, 196, 209))
+
+}
+
+.hd{
+    background:  linear-gradient(to right ,rgb(0, 0, 0),rgb(7, 209, 91));
+    color:#FFFFFF;
+
+}
+
+.item{
+right: 0;
+}
+
+.data{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 75% 20%;
+}
+.text_input{
+    margin-left: 13px;
+    width: 90%;
+    
+}
+.lbl{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 100%;
+
+}
+
+.btn_save{
+    width: 100px;
+    height: 60px;
+    border: none;
+    font-family: 'Montserrat';
+    cursor: pointer;
+    color: #FFFFFF;
+    background: #32850c;
+    font-size: larger;
+    border-radius: 22px;
+    right: 12px;
+    position: absolute;
+
+}
