@@ -12,7 +12,7 @@ const AdminHome = () => {
     const API_URL = "mongodb+srv://bank:Bank%40123@cluster0.alh1z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/bank"
 
     useEffect( () => {
-      axios.get("http://localhost:5000/getAcc")
+      axios.get("https://bankdb-azure.vercel.app/getAcc")
       .then(bank => setItems(bank.data))
       .catch(err => console.log(err))
 

@@ -21,7 +21,7 @@ const Users = () => {
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/getUser")
+    axios.get("https://bankdb-azure.vercel.app/getUser")
       .then(bank => {
         setItems(bank.data);
         setFilteredItem(bank.data.filter(item => item.id === user));
@@ -41,9 +41,9 @@ const Users = () => {
     setSuccess(false);
 
     const id = items.length ? items[items.length - 1].id + 1 : 1;
-    await axios.post("http://localhost:5000/user", { description, cash, id, user });
+    await axios.post("https://bankdb-azure.vercel.app/user", { description, cash, id, user });
 
-    axios.get("http://localhost:5000/getUser")
+    axios.get("https://bankdb-azure.vercel.app/getUser")
       .then(bank => {
         setItems(bank.data);
         setFilteredItem(bank.data.filter(item => item.id === user));

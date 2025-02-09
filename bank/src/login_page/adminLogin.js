@@ -21,7 +21,7 @@ const User_Login = () => {
     setLoginSuccess(false); // Reset success message
 
     try {
-      const response = await axios.post("http://localhost:5000/login", { userName, password });
+      const response = await axios.post("https://bankdb-azure.vercel.app/login", { userName, password });
 
       if (response.data === "success") {
         // Pass the user data (like userId or userName) to the Home page

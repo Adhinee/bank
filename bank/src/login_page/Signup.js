@@ -31,7 +31,7 @@ const Signup = () => {
 
 
   useEffect( () => {
-    axios.get("http://localhost:5000/getAcc")
+    axios.get("https://bankdb-azure.vercel.app/getAcc")
     .then(bank => setItems(bank.data))
     .catch(err => console.log(err))
 
@@ -40,7 +40,7 @@ const Signup = () => {
   async function submit(e) {
     e.preventDefault();
 
-    axios.get("http://localhost:5000/getAcc")
+    axios.get("https://bankdb-azure.vercel.app/getAcc")
     .then(bank => setItems(bank.data))
     .catch(err => console.log(err))
 
@@ -50,7 +50,7 @@ const Signup = () => {
 
     try {
       const id = items.length? items[items.length-1].id+1 : 1;
-      const response = await axios.post("http://localhost:5000/Signup", { userName, password ,id});
+      const response = await axios.post("https://bankdb-azure.vercel.app/Signup", { userName, password ,id});
 
       if (response.data === "Username is already taken") {
         setError(response.data);  // Show error if username is already taken
