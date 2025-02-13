@@ -48,7 +48,7 @@ const User_Login = () => {
       </Link>
     </div>
     <div className="login">
-      <h4>Admin Login</h4>
+      <h4>Admin Only Login</h4>
       <form className='form' action="POST">
               <div className="text_area">
                 <label htmlFor=""><FaUserAlt /> Username</label>
