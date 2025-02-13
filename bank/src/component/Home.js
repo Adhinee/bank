@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const Home = () => {
   const location = useLocation()
-  const user = location.state.username;
+  
   const API_URL = "mongodb+srv://bank:Bank%40123@cluster0.alh1z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/bank";
 
   const history = useNavigate();
