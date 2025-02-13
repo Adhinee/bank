@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './userStyle.css';
+
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FaUserAlt } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
@@ -12,7 +12,6 @@ const Home = () => {
   const API_URL = "mongodb+srv://bank:Bank%40123@cluster0.alh1z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/bank";
 
   const history = useNavigate();
-  const location = useLocation();
   const user = location.state.id;
 
   const [description, setDescription] = useState('');
