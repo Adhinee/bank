@@ -1,5 +1,10 @@
-import React from 'react'
-import { useLocation,useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import './userStyle.css';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { FaUserAlt } from "react-icons/fa";
+import { FaPhoneAlt } from "react-icons/fa";
+import axios from 'axios';
+
 
 const Home = () => {
   const location = useLocation()
