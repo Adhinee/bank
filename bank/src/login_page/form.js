@@ -1,49 +1,14 @@
 import React, { useState } from 'react';
+import './loginPgStyle.css';
 import { FaUserAlt } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
 
-const User_Login = () => {
-  const history = useNavigate();
-
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loginSuccess, setLoginSuccess] = useState(false); // For success notification
-
-  async function submit(e) {
-    e.preventDefault();
-
-    // Clear previous errors
-    setError('');
-    setLoginSuccess(false); // Reset success message
-
-    try {
-      const response = await axios.post("https://bankdb-azure.vercel.app/login", { userName, password });
-
-      if (response.data === "success") {
-        // Pass the user data (like userId or userName) to the Home page
-        const userData = { id: userName }; // You can change this to actual user data (e.g. user.id from DB)
-
-        // Redirect to Home page with state (pass user data via state)
-        setLoginSuccess(true);
-        setTimeout(() => {
-          history('/Home', { state: userData });
-        }, 0); // Redirect after 1.5 seconds to show success message
-      } else {
-        setError(response.data);  // Set error if login fails
-      }
-    } catch (err) {
-      setError('Something went wrong. Please try again.');
-    }
-  }
-
+const form = ({user,Link,userName,setUserName,password,setPassword,error,loginSuccess,submit}) => {
   return (
     <div className='bg-hero h-screen flex w-90'>
       <div >
         <Link to="/adminLogin">
-          <button className=' bg-green-500 rounded-xl absolute p-3 m-4 text-xl top-0  right-0'>Admin Login</button>
+          <button className=' bg-green-500 rounded-xl absolute p-3 m-4 text-xl top-0  right-0'> {user} </button>
         </Link>
       </div>
     <div className="login bg-slate-100 w-auto h-auto mx-auto rounded-xl my-auto  p-6 shadow-xl shadow-black">
@@ -93,7 +58,7 @@ const User_Login = () => {
         </div>
       </form>
     </div></div>
-  );
+  )
 }
 
-export default User_Login;
+export default form

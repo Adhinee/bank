@@ -4,6 +4,7 @@ import { FaUserAlt } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import Form from './form';
 
 const User_Login = () => {
   const history = useNavigate();
@@ -42,58 +43,19 @@ const User_Login = () => {
 
   return (
     <div>
-    <div className='login-change-btn'>
-      <Link to="/">
-         <button>User Login</button>
-      </Link>
+      <Form 
+      Link={Link}
+      userName={userName}
+      setUserName={setUserName}
+      password={password}
+      setPassword={setPassword}
+      error={error}
+      loginSuccess={loginSuccess}
+      submit={submit}
+      user="admin"
+
+      />
     </div>
-    <div className="login">
-      <h4>Admin Login</h4>
-      <form className='form' action="POST">
-              <div className="text_area">
-                <label htmlFor=""><FaUserAlt /> Username</label>
-                <input
-                  value={userName} // Value bound to state
-                  onChange={(e) => { setUserName(e.target.value) }}
-                  type="text"
-                  id="username"
-                  name="username"
-                  className="text_input"
-                  placeholder="Type your username"
-                />
-              </div>
-      
-              <div className="text_area">
-                <label htmlFor=""><RiLockPasswordFill /> Password</label>
-                <input
-                  value={password} // Value bound to state
-                  onChange={(e) => { setPassword(e.target.value) }}
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="Type your password"
-                  className="text_input"
-                />
-              </div>
-      
-
-        {error && <div className="error">{error}</div>} {/* Display error message */}
-        {loginSuccess && <div className="success">Login Successful!</div>} {/* Display success notification */}
-
-        <div className="btns">
-          <input
-            type="submit"
-            onClick={submit}
-            value="LOGIN"
-            className="btn"
-          />
-
-          <Link to="/Signup" className="link">
-            SIGN UP
-          </Link>
-        </div>
-      </form>
-    </div></div>
   );
 }
 

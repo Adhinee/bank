@@ -7,7 +7,7 @@ import Home from './component/Home';
 import AdminLogin from './login_page/adminLogin'
 import AdminHome from './admin/AdminHome'
 import Users from './adminViewUsers/users'
-
+import '../src/output.css'
 
 function App() {
   return (
