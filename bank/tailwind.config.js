@@ -12,6 +12,9 @@ module.exports = {
       },
      
     },
+    fontFamily:{
+      dmsans:['DM Sans','serif']
+    }
   },
   plugins: [],
 }

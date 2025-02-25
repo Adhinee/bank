@@ -98,18 +98,30 @@ const Users = () => {
         </div>
       </form>
 
-      <ul>
-        <li className='hd'>
+      <ul className='w-full bg-black font-dmsans '>
+        <li className='hd  bg-slate-300 flex py-2 my-0.5'>
           <div className='item'>Description</div>
           <div className='item'>Amount</div>
         </li>
       </ul>
 
-      <ul>
+      <ul className='w-full bg-black font-dmsans '>
         {filteredItem.map(filteredItem => (
-          <li key={filteredItem.id}>
-            <div className='item'>{filteredItem.description}</div>
-            <div className='item'>{filteredItem.cash}.00</div>
+          <li key={filteredItem.id}  className=' bg-slate-300 flex my-0.5 h-9'>
+
+      <div className='mx-2 py-2'>
+      
+      <div className=' text-lg font-dmsans   text-gray-700 '>
+        {filteredItem.description}
+
+      </div>
+
+        <div className='text-lg  font-bold text-purple-950 absolute right-0'>
+          {filteredItem.cash}.00
+        </div>
+          
+        </div>
+
           </li>
         ))}
       </ul>

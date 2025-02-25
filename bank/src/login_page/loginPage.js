@@ -3,11 +3,15 @@ import './loginPgStyle.css';
 import { FaUserAlt } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 
-const form = ({user,Link,userName,setUserName,password,setPassword,error,loginSuccess,submit}) => {
+
+const login = ({link,user,Link,userName,setUserName,password,setPassword,error,loginSuccess,submit}) => {
+  
+
+  
   return (
     <div className='bg-hero h-screen flex w-90'>
       <div >
-        <Link to="/adminLogin">
+        <Link to={link}>
           <button className=' bg-green-500 rounded-xl absolute p-3 m-4 text-xl top-0  right-0'> {user} </button>
         </Link>
       </div>
@@ -61,4 +65,4 @@ const form = ({user,Link,userName,setUserName,password,setPassword,error,loginSu
   )
 }
 
-export default form
+export default login

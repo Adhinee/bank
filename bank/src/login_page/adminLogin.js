@@ -4,7 +4,7 @@ import { FaUserAlt } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import Form from './form';
+import Login from './loginPage';
 
 const User_Login = () => {
   const history = useNavigate();
@@ -32,7 +32,7 @@ const User_Login = () => {
         setLoginSuccess(true);
         setTimeout(() => {
           history('/AdminHome', { state: userData });
-        }, 0); // Redirect after 1.5 seconds to show success message
+        }, 500); // Redirect after 1.5 seconds to show success message
       } else {
         setError(response.data);  // Set error if login fails
       }
@@ -43,7 +43,7 @@ const User_Login = () => {
 
   return (
     <div>
-      <Form 
+      <Login 
       Link={Link}
       userName={userName}
       setUserName={setUserName}
@@ -52,7 +52,8 @@ const User_Login = () => {
       error={error}
       loginSuccess={loginSuccess}
       submit={submit}
-      user="admin"
+      user="user login"
+      link="/"
 
       />
     </div>

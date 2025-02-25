@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Link,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+
 const AdminHome = () => {
   const history = useNavigate();
   const [username,setUsername] = useState('')
@@ -26,22 +27,40 @@ const AdminHome = () => {
 
     return (
       (items.length) ? (
-          <div className='contented'>
-            <ul>
+          <div className='bg-hero  bg-cover h-screen flex flex-col  w-90'>
+            <div className=' text-purple-950 bg-white p-2 font-bold text-lg w-full text-center  mx-auto'>
+              Accounts & Cards
+            </div>
+
+            <div className='bg-purple-950 z-20 h-24 p-4 w-screen'>
+
+            </div>
+          <div className='bg-slate-500 text-purple-950 p-2 font-bold'>
+            ACCOUNTS
+          </div>
+
+            <ul className='w-full bg-black font-dmsans '>
+
               {items.map((n) => (
-                <li key={n.id}
-                onClick={() => handleClick(n.id,n.userName)}
-                
-                >
+                <li key={n.id} className=' bg-slate-300 flex py-2 my-0.5'
+                onClick={() => handleClick(n.id,n.userName)}>
+
+                  <div className='mx-2'>
       
-                  <div className='label2'
+
+                  <div className=' text-lg font-dmsans   text-gray-700 '
                   >
                       {n.userName}
-                      
-                      
+
                   </div>
 
-                  <div className='label2' 
+                    <div className='text-lg  font-bold text-purple-950'>
+                      1500.00
+                    </div>
+                      
+                    </div>
+
+                  <div className='absolute right-0 mr-7 my-0.5' 
                   >{n.id}</div>
       
       
