@@ -68,7 +68,7 @@ const Users = () => {
   const userName = location.state.userName;
 
   return (
-    <div className='bg-blue-900 w-full h-full -mb-3 font-dmsans'>
+    <div className='bg-blue-900 w-full h-screen -mb-3 font-dmsans'>
       <h1 className='text-white p-4 font-dmsans font-bold w-full text-lg  text-center'>  {user} {userName}'s Data </h1>
 
 
