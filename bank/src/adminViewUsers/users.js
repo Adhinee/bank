@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './userStyle.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FaUserAlt } from "react-icons/fa";
-import { FaPhoneAlt } from "react-icons/fa";
 import axios from 'axios';
 
 const Users = () => {
@@ -14,14 +12,21 @@ const Users = () => {
 
   const [description, setDescription] = useState('');
   const [cash, setCash] = useState('');
+  const [cash2, setCash2] = useState('');
   const [items, setItems] = useState([]);
   const [filteredItem, setFilteredItem] = useState([]);
   const [total, setTotal] = useState(0);
   const [error, setError] = useState('');
+
   const [success, setSuccess] = useState(false);
+  
+
+  const URL ="https://bankdb-azure.vercel.app/";
+
+  const URL2 ="https://bankdb-azure.vercel.app/";
 
   useEffect(() => {
-    axios.get("https://bankdb-azure.vercel.app/getUser")
+    axios.get(URL + "getUser")
       .then(bank => {
         setItems(bank.data);
         setFilteredItem(bank.data.filter(item => item.id === user));
@@ -30,7 +35,7 @@ const Users = () => {
   }, [user]);
 
   useEffect(() => {
-    const totalAmount = filteredItem.reduce((sum, item) => sum + parseInt(item.cash), 0);
+    const totalAmount = filteredItem.reduce((sum, item) => sum + parseInt(item.cash)  , 0);
     setTotal(totalAmount);
   }, [filteredItem]);
 
@@ -40,10 +45,15 @@ const Users = () => {
     setError('');
     setSuccess(false);
 
-    const id = items.length ? items[items.length - 1].id + 1 : 1;
-    await axios.post("https://bankdb-azure.vercel.app/user", { description, cash, id, user });
+    if(cash2>0){
+      setCash(cash2)
+      cash2('')
+    }
 
-    axios.get("https://bankdb-azure.vercel.app/getUser")
+    const id = items.length ? items[items.length - 1].id + 1 : 1;
+    await axios.post(URL + "user", { description, cash, id, user });
+
+    axios.get(URL+"getUser")
       .then(bank => {
         setItems(bank.data);
         setFilteredItem(bank.data.filter(item => item.id === user));
@@ -58,65 +68,74 @@ const Users = () => {
   const userName = location.state.userName;
 
   return (
-    <div>
-      <h1>{user} {userName} Data</h1>
+    <div className='bg-blue-900 w-full h-full -mb-3 font-dmsans'>
+      <h1 className='text-white p-4 font-dmsans font-bold w-full text-lg  text-center'>  {user} {userName}'s Data </h1>
 
-      {success && <p className="success-message">Data saved successfully!</p>}
-      {error && <p className="error-message">{error}</p>}
+
+      <div className=' h-1 w-full bg-black'> </div>
+
+      {success && <p className="text-green-400">Data saved successfully!</p>}
+      {error && <p className="text-red-600">{error}</p>}
 
       <form action="POST" className="data">
-        <div className="lbl">
+          <div className='grid'>
           <input
-            required
-            onChange={(e) => { setDescription(e.target.value) }}
+            required 
+            onChange={(e) => setDescription(e.target.value) }
             type="text"
             id="name"
             name="name"
             value={description}
-            className="text_input"
+            className="p-3 m-2 border-b-2 bg-transparent text-white border-solid border-0 focus:border-b-2  focus:border-none border-white"
             placeholder="Description"
+            
           />
+
+
           <input
-            required
-            onChange={(e) => { setCash(e.target.value) }}
+            required 
+            onChange={(e) => { setCash2(e.target.value) }}
             type="number"
             id="phone"
             name="phone"
             value={cash}
             placeholder="Cash"
-            className="text_input"
+            className="p-3 m-2 border-b-2 text-white bg-transparent border-solid border-0 focus:border-0 border-white"
+           
           />
         </div>
         
-        <div className="text_input">
+        <div className="grid">
           <input
             type="submit"
             onClick={submit}
             value="Save"
-            className="btn_save"
+            className="bg-orange-600 p-2 rounded-lg text-white m-2 "
           />
         </div>
       </form>
 
-      <ul className='w-full bg-black font-dmsans '>
-        <li className='hd  bg-slate-300 flex py-2 my-0.5'>
-          <div className='item'>Description</div>
-          <div className='item'>Amount</div>
+
+      <div className='bg-slate-800 m-2 p-2'>
+      <ul className='w-full bg-lime-200 mt-6 font-dmsans '>
+        <li className=' py-5'>
+          <div className='absolute -mt-2 left-10'>Description</div>
+          <div className='absolute  -mt-2 right-10'>Amount</div>
         </li>
       </ul>
 
-      <ul className='w-full bg-black font-dmsans '>
+      <ul className='font-dmsans '>
         {filteredItem.map(filteredItem => (
-          <li key={filteredItem.id}  className=' bg-slate-300 flex my-0.5 h-9'>
+          <li key={filteredItem.id}  className=' bg-transparent border-white text-white border-b-2 border-solid flex my-0.5 h-9'>
 
-      <div className='mx-2 py-2'>
+      <div className='mx-2 py-2 '>
       
-      <div className=' text-lg font-dmsans   text-gray-700 '>
+      <div className='absolute -mt-2 left-10 text-lg font-dmsans  '>
         {filteredItem.description}
 
       </div>
 
-        <div className='text-lg  font-bold text-purple-950 absolute right-0'>
+        <div className='text-lg absolute -mt-2   font-bold 0  right-10'>
           {filteredItem.cash}.00
         </div>
           
@@ -126,12 +145,14 @@ const Users = () => {
         ))}
       </ul>
 
-      <ul>
-        <li className='hd'>
-          <div className='item'>Total</div>
-          <div className='item'>{total}.00</div>
+      <ul className='w-full bg-green-600 mt-6 font-dmsans '>
+        <li className=' py-5'>
+          <div className='absolute -mt-2 left-10'>Total</div>
+          <div className='absolute  -mt-2 right-10'>{total}.00</div>
         </li>
       </ul>
+
+    </div>
     </div>
   );
 }

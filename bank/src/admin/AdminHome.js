@@ -32,7 +32,7 @@ const AdminHome = () => {
               Accounts & Cards
             </div>
 
-            <div className='bg-purple-950 z-20 h-24 p-4 w-screen'>
+            <div className='bg-purple-950 h-2 p-4 w-screen'>
 
             </div>
           <div className='bg-slate-500 text-purple-950 p-2 font-bold'>
@@ -54,7 +54,7 @@ const AdminHome = () => {
 
                   </div>
 
-                    <div className='text-lg  font-bold text-purple-950'>
+                    <div className='text-lg  font-bold text-orange-700'>
                       1500.00
                     </div>
                       
