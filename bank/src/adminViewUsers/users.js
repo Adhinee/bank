@@ -45,10 +45,6 @@ const Users = () => {
     setError('');
     setSuccess(false);
 
-    if(cash2>0){
-      setCash(cash2)
-      cash2('')
-    }
 
     const id = items.length ? items[items.length - 1].id + 1 : 1;
     await axios.post(URL + "user", { description, cash, id, user });
@@ -94,7 +90,7 @@ const Users = () => {
 
           <input
             required 
-            onChange={(e) => { setCash2(e.target.value) }}
+            onChange={(e) => { setCash(e.target.value) }}
             type="number"
             id="phone"
             name="phone"
