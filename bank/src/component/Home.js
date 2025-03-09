@@ -36,32 +36,11 @@ const Home = () => {
     setTotal(totalAmount);
   }, [filteredItem]);
 
-  async function submit(e) {
-    e.preventDefault();
-
-    setError('');
-    setSuccess(false);
-
-    const id = items.length ? items[items.length - 1].id + 1 : 1;
-    await axios.post("https://bankdb-azure.vercel.app/user", { description, cash, id, user });
-
-    axios.get("https://bankdb-azure.vercel.app/getUser")
-      .then(bank => {
-        setItems(bank.data);
-        setFilteredItem(bank.data.filter(item => item.id === user));
-      })
-      .catch(err => console.log(err));
-
-    setSuccess(true);
-    setDescription('');
-    setCash('');
-  }
-
   const userName = location.state.userName;
 
   return (
     <div>
-      <h1>{user} {items} Data</h1>
+      <h1>{user} Data</h1>
 
 
 
