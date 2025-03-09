@@ -63,65 +63,51 @@ const Home = () => {
     <div>
       <h1>{user} {userName} Data</h1>
 
-      {success && <p className="success-message">Data saved successfully!</p>}
-      {error && <p className="error-message">{error}</p>}
 
-      <form action="POST" className="data">
-        <div className="lbl">
-          <input
-            required
-            onChange={(e) => { setDescription(e.target.value) }}
-            type="text"
-            id="name"
-            name="name"
-            value={description}
-            className="text_input"
-            placeholder="Description"
-          />
-          <input
-            required
-            onChange={(e) => { setCash(e.target.value) }}
-            type="number"
-            id="phone"
-            name="phone"
-            value={cash}
-            placeholder="Cash"
-            className="text_input"
-          />
-        </div>
-        
-        <div className="text_input">
-          <input
-            type="submit"
-            onClick={submit}
-            value="Save"
-            className="btn_save"
-          />
-        </div>
-      </form>
 
-      <ul>
-        <li className='hd'>
-          <div className='item'>Description</div>
-          <div className='item'>Amount</div>
+  <div className='bg-slate-800 m-2 p-2'>
+      <ul className='w-full bg-lime-200 mt-6 font-dmsans '>
+        <li className=' py-5'>
+          <div className='absolute -mt-2 left-10'>Description</div>
+          <div className='absolute  -mt-2 right-10'>Amount</div>
         </li>
       </ul>
 
-      <ul>
+      <ul className='font-dmsans '>
         {filteredItem.map(filteredItem => (
-          <li key={filteredItem.id}>
-            <div className='item'>{filteredItem.description}</div>
-            <div className='item'>{filteredItem.cash}.00</div>
+          <li key={filteredItem.id}  className=' bg-transparent border-white text-white border-b-2 border-solid flex my-0.5 h-9'>
+
+      <div className='mx-2 py-2 '>
+      
+      <div className='absolute -mt-2 left-10 text-lg font-dmsans  '>
+        {filteredItem.description}
+
+      </div>
+
+        <div className='text-lg absolute -mt-2   font-bold 0  right-10'>
+          {filteredItem.cash}.00
+        </div>
+          
+        </div>
+
           </li>
         ))}
       </ul>
 
-      <ul>
-        <li className='hd'>
-          <div className='item'>Total</div>
-          <div className='item'>{total}.00</div>
+      <ul className='w-full bg-green-600 mt-6 font-dmsans '>
+        <li className=' py-5'>
+          <div className='absolute -mt-2 left-10'>Total</div>
+          <div className='absolute  -mt-2 right-10'>{total}.00</div>
         </li>
       </ul>
+
+    </div>
+
+
+
+
+
+        
     </div>
   );
 }
