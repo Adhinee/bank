@@ -22,8 +22,10 @@ const Home = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
+  const URL ="https://bankdb-azure.vercel.app/";
+  
   useEffect(() => {
-    axios.get("https://bankdb-azure.vercel.app/getUser")
+    axios.get(URL + "getUser")
       .then(bank => {
         setItems(bank.data);
         setFilteredItem(bank.data.filter(item => item.id === user));
