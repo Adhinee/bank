@@ -40,13 +40,56 @@ const Home = () => {
 
   const userName = location.state.userName;
 
-  return (
-    <div>
-      <h1>{user} Data</h1>
+ return (
+    <div className='bg-blue-900 w-full h-screen -mb-3 font-dmsans'>
+      <h1 className='text-white p-4 font-dmsans font-bold w-full text-lg  text-center'>  {user} {userName}'s Data </h1>
 
 
+      <div className=' h-1 w-full bg-black'> </div>
 
-  <div className='bg-slate-800 m-2 p-2'>
+      {success && <p className="text-green-400">Data saved successfully!</p>}
+      {error && <p className="text-red-600">{error}</p>}
+
+      <form action="POST" className="data">
+          <div className='grid'>
+          <input
+            required 
+            onChange={(e) => setDescription(e.target.value) }
+            type="text"
+            id="name"
+            name="name"
+            value={description}
+            className="p-3 m-2 border-b-2 bg-transparent text-white border-solid border-0 focus:border-b-2  focus:border-none border-white"
+            placeholder="Description"
+            
+          />
+
+
+          <input
+            required 
+            onChange={(e) => { setCash(e.target.value) }}
+            type="number"
+            id="phone"
+            name="phone"
+            value={cash}
+            placeholder="Cash"
+            className="p-3 m-2 border-b-2 text-white bg-transparent border-solid border-0 focus:border-0 border-white"
+           
+          />
+        </div>
+        
+        <div className="grid">
+          <input
+            type="submit"
+            onClick={submit}
+            value="Save"
+            className="bg-orange-600 p-2 rounded-lg text-white m-2 "
+          />
+        </div>
+      </form>
+
+
+      <div className='bg-slate-800 m-2 p-2'>
       <ul className='w-full bg-lime-200 mt-6 font-dmsans '>
         <li className=' py-5'>
           <div className='absolute -mt-2 left-10'>Description</div>
@@ -83,12 +126,6 @@ const Home = () => {
       </ul>
 
     </div>
-
-
-
-
-
-        
     </div>
   );
 }
