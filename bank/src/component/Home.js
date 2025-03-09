@@ -61,7 +61,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>{user} {items[1].userName} Data</h1>
+      <h1>{user} {items} Data</h1>
 
 
 
