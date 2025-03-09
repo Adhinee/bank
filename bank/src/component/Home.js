@@ -1,29 +1,30 @@
 import React, { useState, useEffect } from 'react';
-
+import './userStyle.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FaUserAlt } from "react-icons/fa";
-import { FaPhoneAlt } from "react-icons/fa";
 import axios from 'axios';
 
-
-const Home = () => {
-  const location = useLocation()
-  
+const Users = () => {
   const API_URL = "mongodb+srv://bank:Bank%40123@cluster0.alh1z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/bank";
 
   const history = useNavigate();
+  const location = useLocation();
   const user = location.state.id;
 
   const [description, setDescription] = useState('');
   const [cash, setCash] = useState('');
+  const [cash2, setCash2] = useState('');
   const [items, setItems] = useState([]);
   const [filteredItem, setFilteredItem] = useState([]);
   const [total, setTotal] = useState(0);
   const [error, setError] = useState('');
+
   const [success, setSuccess] = useState(false);
+  
 
   const URL ="https://bankdb-azure.vercel.app/";
-  
+
+  const URL2 ="https://bankdb-azure.vercel.app/";
+
   useEffect(() => {
     axios.get(URL + "getUser")
       .then(bank => {
@@ -34,13 +35,35 @@ const Home = () => {
   }, [user]);
 
   useEffect(() => {
-    const totalAmount = filteredItem.reduce((sum, item) => sum + parseInt(item.cash), 0);
+    const totalAmount = filteredItem.reduce((sum, item) => sum + parseInt(item.cash)  , 0);
     setTotal(totalAmount);
   }, [filteredItem]);
 
+  async function submit(e) {
+    e.preventDefault();
+
+    setError('');
+    setSuccess(false);
+
+
+    const id = items.length ? items[items.length - 1].id + 1 : 1;
+    await axios.post(URL + "user", { description, cash, id, user });
+
+    axios.get(URL+"getUser")
+      .then(bank => {
+        setItems(bank.data);
+        setFilteredItem(bank.data.filter(item => item.id === user));
+      })
+      .catch(err => console.log(err));
+
+    setSuccess(true);
+    setDescription('');
+    setCash('');
+  }
+
   const userName = location.state.userName;
 
- return (
+  return (
     <div className='bg-blue-900 w-full h-screen -mb-3 font-dmsans'>
       <h1 className='text-white p-4 font-dmsans font-bold w-full text-lg  text-center'>  {user} {userName}'s Data </h1>
 
@@ -130,4 +153,4 @@ const Home = () => {
   );
 }
 
-export default Home
+export default Users;
