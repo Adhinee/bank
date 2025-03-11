@@ -23,7 +23,6 @@ const Users = () => {
 
   const URL ="https://bankdb-azure.vercel.app/";
 
-  const URL2 ="https://bankdb-azure.vercel.app/";
 
   useEffect(() => {
     axios.get(URL + "getUser")
@@ -47,7 +46,7 @@ const Users = () => {
 
 
     const id = items.length ? items[items.length - 1].id + 1 : 1;
-    await axios.post(URL + "user", { description, cash, id, user });
+    await axios.post(URL + "user", { description, cash, user , total });
 
     axios.get(URL+"getUser")
       .then(bank => {

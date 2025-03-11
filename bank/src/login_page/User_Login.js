@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import { FaUserAlt } from "react-icons/fa";
-import { RiLockPasswordFill } from "react-icons/ri";
-import { useNavigate, Link, Form } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import Login from './loginPage';
+import React, { useState } from 'react';
 
 const User_Login = () => {
   const history = useNavigate();
@@ -11,53 +9,64 @@ const User_Login = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loginSuccess, setLoginSuccess] = useState(false); // For success notification
+  const [id, setId] = useState('');
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   async function submit(e) {
     e.preventDefault();
 
     // Clear previous errors
     setError('');
-    setLoginSuccess(false); // Reset success message
+    setLoginSuccess(false);
 
     try {
       const response = await axios.post("https://bankdb-azure.vercel.app/login", { userName, password });
 
       if (response.data === "success") {
-        // Pass the user data (like userId or userName) to the Home page
-        const userData = { id: userName }; // You can change this to actual user data (e.g. user.id from DB)
-
-        // Redirect to Home page with state (pass user data via state)
-        setLoginSuccess(true);
-        setTimeout(() => {
-          history('/Home', { state: userData });
-        }, 0); // Redirect after 1.5 seconds to show success message
+        try {
+          const bank = await axios.get("https://bankdb-azure.vercel.app/getAcc");
+          const user = bank.data.find(item => item.userName === userName);
+          
+          if (user) {
+            const userData = { userName, userId: user.id };
+            setLoginSuccess(true);
+            
+            // Redirect to Home page after setting login success
+            setTimeout(() => {
+              history('/Home', { state: userData });
+            }, 1000); // Redirect after 1 second
+          } else {
+            setError('User not found.');
+          }
+        } catch (err) {
+          setError('Error fetching user data.');
+          console.log(err);
+        }
       } else {
         setError(response.data);  // Set error if login fails
       }
     } catch (err) {
-      setError('Something went wrong. Please try again.');
+      setError('Login failed, please try again later.');
+      console.log(err);
     }
   }
 
   return (
-    <div >
-    <Login
-    Link={Link}
-    userName={userName}
-    setUserName={setUserName}
-    password={password}
-    setPassword={setPassword}
-    error={error}
-    loginSuccess={loginSuccess}
-    submit={submit}
-    user="admin"
-    link="/adminlogin"
-
-
-    />
+    <div>
+      <Login
+        Link={Link}
+        userName={userName}
+        setUserName={setUserName}
+        password={password}
+        setPassword={setPassword}
+        error={error}
+        loginSuccess={loginSuccess}
+        submit={submit}
+        user="admin"
+        link="/adminlogin"
+      />
     </div>
   );
-}
+};
 
 export default User_Login;
