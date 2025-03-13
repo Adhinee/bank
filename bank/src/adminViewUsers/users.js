@@ -45,8 +45,9 @@ const Users = () => {
     setSuccess(false);
 
 
-    const id = items.length ? items[items.length - 1].id + 1 : 1;
-    await axios.post(URL + "user", { description, cash, user , total });
+    await axios.post("http://localhost:5000/user", { description, cash, id:user , total });
+
+    
 
     axios.get(URL+"getUser")
       .then(bank => {

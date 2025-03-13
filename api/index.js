@@ -66,11 +66,14 @@ app.post("/Signup", (req, res) => {
 });
 
 app.post("/user", (req, res) => {
-    const { description, cash, id } = req.body;
-    UserModels.create({ description, cash, id , total})
-        .then(acc => res.json(acc))
-        .catch(err => res.status(500).json("Error creating user data: " + err));
+    const { description, cash, id , total } = req.body;
+
+    UserModels.create({ description, cash, id , total })
+        .then(acc => res.json({ message: "User data created", user: acc }))
+        .catch(err => res.status(500).json({ error: "Error creating user data", details: err.message }));
 });
+
+
 
 app.get('/getAcc', (req, res) => {
     AccModels.find()

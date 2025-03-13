@@ -7,9 +7,10 @@ import axios from 'axios';
 
 const AdminHome = () => {
   const history = useNavigate();
-  const [username,setUsername] = useState('')
+  const [total,setTotal] = useState([])
   const [items,setItems]=useState([])
   const navigate = useNavigate();
+
     const API_URL = "mongodb+srv://bank:Bank%40123@cluster0.alh1z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/bank"
 
     useEffect( () => {
@@ -19,6 +20,18 @@ const AdminHome = () => {
 
 
     } , [])
+
+
+    
+    useEffect( () => {
+      axios.get("https://bankdb-azure.vercel.app/getUser")
+      .then(bank => setTotal(bank.data))
+      .catch(err => console.log(err))
+
+    } , [])
+
+
+
     const handleClick = (id, username) => {
       const userData = { id: id ,userName: username};
       history('/users', { state: userData }); 
@@ -55,7 +68,7 @@ const AdminHome = () => {
                   </div>
 
                     <div className='text-lg  font-bold text-orange-700'>
-                      1500.00
+                      {total.map(m => m.id === n.id ? m.total : null ) }
                     </div>
                       
                     </div>
