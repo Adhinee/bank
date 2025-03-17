@@ -9,6 +9,7 @@ const AdminHome = () => {
   const history = useNavigate();
   const [total,setTotal] = useState([])
   const [items,setItems]=useState([])
+  const [filteredItem , setFilteredItem] = useState([])
   const navigate = useNavigate();
 
     const API_URL = "mongodb+srv://bank:Bank%40123@cluster0.alh1z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/bank"
@@ -25,9 +26,10 @@ const AdminHome = () => {
     
     useEffect( () => {
       axios.get("https://bankdb-azure.vercel.app/getUser")
-      .then(bank => setTotal(bank.data))
+      .then(bank => {setTotal(bank.data)})
       .catch(err => console.log(err))
 
+      
     } , [])
 
 
@@ -68,7 +70,7 @@ const AdminHome = () => {
                   </div>
 
                     <div className='text-lg  font-bold text-orange-700'>
-                      {total.map(m => m.id === n.id ? m.total : null ) }
+                      
                     </div>
                       
                     </div>

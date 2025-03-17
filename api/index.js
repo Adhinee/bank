@@ -66,12 +66,41 @@ app.post("/Signup", (req, res) => {
 });
 
 app.post("/user", (req, res) => {
-    const { description, cash, id , total } = req.body;
+    const { description, cash, id , total ,dataid} = req.body;
 
-    UserModels.create({ description, cash, id , total })
+    UserModels.create({ description:description, cash:cash, id:id , total:total ,dataid:dataid})
         .then(acc => res.json({ message: "User data created", user: acc }))
         .catch(err => res.status(500).json({ error: "Error creating user data", details: err.message }));
 });
+
+
+
+app.delete("/delete", (req, res) => {
+    const { dataid } = req.query;  // Access 'dataid' from query params
+
+    console.log("Received dataid:", dataid);  // Log the received dataid
+
+    if (!dataid) {
+        return res.status(400).json({ message: "Data ID is required" });
+    }
+
+    // Try to find the document to delete
+    UserModels.deleteOne({ dataid: dataid })
+        .then(result => {
+            console.log("Delete result:", result);  // Log the result of the delete operation
+
+            if (result.deletedCount === 0) {
+                return res.status(404).json({ message: "No data found to delete" });
+            }
+            res.json({ message: "User data deleted successfully", result });
+        })
+        .catch(err => {
+            console.error("Error deleting user data:", err);
+            res.status(500).json({ error: "Error deleting user data", details: err.message });
+        });
+});
+
+
 
 
 

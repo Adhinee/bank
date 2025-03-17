@@ -6,9 +6,9 @@ import axios from 'axios';
 const Users = () => {
   const API_URL = "mongodb+srv://bank:Bank%40123@cluster0.alh1z.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/bank";
 
-  const history = useNavigate();
   const location = useLocation();
-  const user = location.state.id;
+  const userId = location.state.id;
+  const userName = location.state.userName;
 
   const [description, setDescription] = useState('');
   const [cash, setCash] = useState('');
@@ -16,56 +16,85 @@ const Users = () => {
   const [items, setItems] = useState([]);
   const [filteredItem, setFilteredItem] = useState([]);
   const [total, setTotal] = useState(0);
+  const [dataid, setDataid] = useState(1);
   const [error, setError] = useState('');
 
   const [success, setSuccess] = useState(false);
   
 
-  const URL ="https://bankdb-azure.vercel.app/";
+  const URL2 ="https://bankdb-azure.vercel.app/";
+
+  const URL = "http://localhost:5000/"
 
 
   useEffect(() => {
     axios.get(URL + "getUser")
       .then(bank => {
         setItems(bank.data);
-        setFilteredItem(bank.data.filter(item => item.id === user));
+        setFilteredItem(bank.data.filter(item => item.id === userId));
+        setDataid(filteredItem.length > 0 ? filteredItem.length : 1 )
       })
       .catch(err => console.log(err));
-  }, [user]);
+  }, [userId]);
 
   useEffect(() => {
     const totalAmount = filteredItem.reduce((sum, item) => sum + parseInt(item.cash)  , 0);
     setTotal(totalAmount);
   }, [filteredItem]);
 
+
+  async function handleDelete(dataid) {
+    try {
+        console.log('Sending DELETE request with dataid:', dataid);  // Debugging
+        // Send dataid as part of the URL in the DELETE request
+        await axios.delete(`http://localhost:5000/delete/${dataid}`);
+        
+        // After successful deletion, refresh the data
+        axios.get(URL + "getUser")
+            .then(bank => {
+                setItems(bank.data);
+                setFilteredItem(bank.data.filter(item => item.id === userId));
+            })
+            .catch(err => console.log(err));
+    } catch (error) {
+        console.error('Error deleting the item:', error);
+    }
+}
+
+  
+
   async function submit(e) {
     e.preventDefault();
 
     setError('');
     setSuccess(false);
+    setDataid(filteredItem.length > 0 ? filteredItem.length : 1)
 
+    const totalAmount = filteredItem.reduce((sum, item) => sum + parseInt(item.cash)  , 0);
+    setTotal(totalAmount);
 
-    await axios.post("http://localhost:5000/user", { description, cash, id:user , total });
+    await axios.post(URL + "user", { description, cash, id:userId , total:total ,dataid:userName + dataid});
+    setTotal("")
 
     
 
     axios.get(URL+"getUser")
       .then(bank => {
         setItems(bank.data);
-        setFilteredItem(bank.data.filter(item => item.id === user));
+        setFilteredItem(bank.data.filter(item => item.id === userId));
       })
       .catch(err => console.log(err));
 
     setSuccess(true);
     setDescription('');
     setCash('');
+    
   }
 
-  const userName = location.state.userName;
 
   return (
     <div className='bg-blue-900 w-full h-screen -mb-3 font-dmsans'>
-      <h1 className='text-white p-4 font-dmsans font-bold w-full text-lg  text-center'>  {user} {userName}'s Data </h1>
+      <h1 className='text-white p-4 font-dmsans font-bold w-full text-lg  text-center'>  {userId} {userName}'s Data </h1>
 
 
       <div className=' h-1 w-full bg-black'> </div>
@@ -121,20 +150,30 @@ const Users = () => {
       </ul>
 
       <ul className='font-dmsans '>
-        {filteredItem.map(filteredItem => (
-          <li key={filteredItem.id}  className=' bg-transparent border-white text-white border-b-2 border-solid flex my-0.5 h-9'>
+        {filteredItem.map(ffilteredItem => (
+          <li key={ffilteredItem.dataid}  className=' bg-transparent border-white text-white border-b-2 border-solid flex my-0.5 h-9'>
 
       <div className='mx-2 py-2 '>
       
       <div className='absolute -mt-2 left-10 text-lg font-dmsans  '>
-        {filteredItem.description}
+        {ffilteredItem.description}
+
+      </div>
+
+      <div onClick={() => handleDelete(ffilteredItem.dataid)}
+      className='flex  absolute right-52 hover:bg-red-700 hover:text-green-500 hover:cursor-default'
+
+        >
+
+          dataid : {ffilteredItem.dataid} 
 
       </div>
 
         <div className='text-lg absolute -mt-2   font-bold 0  right-10'>
-          {filteredItem.cash}.00
-        </div>
+
+          {ffilteredItem.cash}.00
           
+        </div>
         </div>
 
           </li>
