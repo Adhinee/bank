@@ -35,7 +35,7 @@ const Users = () => {
         setDataid(filteredItem.length > 0 ? filteredItem.length : 1 )
       })
       .catch(err => console.log(err));
-  }, [userId]);
+  }, [userId,setFilteredItem.setDataid,filteredItem]);
 
   useEffect(() => {
     const totalAmount = filteredItem.reduce((sum, item) => sum + parseInt(item.cash)  , 0);
