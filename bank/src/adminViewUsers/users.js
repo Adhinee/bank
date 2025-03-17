@@ -22,9 +22,9 @@ const Users = () => {
   const [success, setSuccess] = useState(false);
   
 
-  const URL2 ="https://bankdb-azure.vercel.app/";
+  const URL ="https://bankdb-azure.vercel.app/";
 
-  const URL = "http://localhost:5000/"
+  const URL2 = "http://localhost:5000/"
 
 
   useEffect(() => {
