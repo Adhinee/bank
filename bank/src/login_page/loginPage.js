@@ -16,7 +16,7 @@ const login = ({link,user,Link,userName,setUserName,password,setPassword,error,l
         </Link>
       </div>
     <div className="login bg-slate-100 w-auto h-auto mx-auto rounded-xl my-auto  p-6 shadow-xl shadow-black">
-      <h4 className='text-center text-zinc-800 text-2xl font-extrabold font-mono'>User Login</h4>
+      <h4 className='text-center text-zinc-800 text-2xl font-extrabold font-mono'>User Login free</h4>
       <form className='form  text-xl font-sans grid'action="POST">
               <div className="text_area p-3 ">
                 <label htmlFor="" className='flex '><FaUserAlt className='mr-3'/> Username</label>
