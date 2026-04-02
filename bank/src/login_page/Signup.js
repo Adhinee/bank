@@ -71,7 +71,7 @@ const Signup = () => {
 
   return (
     <div className="login">
-      <h4>User Sign Up</h4>
+      <h4>User Sign for free Up</h4>
       <form className='form' action="POST">
         <div className="text_area">
           <label htmlFor=""><FaUserAlt /> Username</label>
